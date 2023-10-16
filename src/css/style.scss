@@ -1,0 +1,633 @@
+@import 'fonts.scss';
+
+// переменные + базовые классы
+$purple-main:#7953C3;
+$black-main:#040013;
+$secondary-black:#5D5B66;
+$light:#CCC;
+$purple-fill:#F4F4F6;
+%pNormal{
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; 
+}
+%pBold{
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    letter-spacing: -0.16px;
+}
+%pSmall{
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 142.85%; 
+    letter-spacing: -0.14px;
+}
+
+*{
+    font-family: 'Museo Sans Cyrl';
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+label{
+    cursor: pointer;
+}
+input,button{
+    font-family: inherit;
+    background: none;
+    border: none;
+    font-size: inherit;
+}
+button{
+    cursor: pointer;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+.hidden{
+    display: none;
+}
+.disabled{
+    opacity: 0.2;
+   
+}
+
+.container{
+    max-width: 1040px;
+    margin: 0 auto;
+}
+h2{
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%; 
+    letter-spacing: -0.8px;
+}
+h3{
+    color: $black-main;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 125%;
+    letter-spacing: -0.32px;
+}
+
+.button-transp {
+    @extend %pNormal;
+    display: flex;
+    align-items: center;
+    color: $purple-main;
+    border: $purple-main 1px solid;
+    border-radius: 8px;
+    padding: 0 16px;
+    height: 40px;
+    width: max-content;
+}
+.button-solid {
+    @extend %pSmall;
+    padding: 8px 40px;
+    border-radius: 8px;
+    background: $purple-main;
+    color: #fff;
+
+}
+
+// шапка
+.header {
+    padding:20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 1.13351px 4.29362px 0px rgba(133, 94, 152, 0.03), 0px 2.86674px 10.85888px 0px rgba(133, 94, 152, 0.04), 0px 5.84789px 22.15109px 0px rgba(133, 94, 152, 0.05), 0px 5.84789px 22.15109px 0px rgba(133, 94, 152, 0.05);
+    margin-bottom: 64px;
+}
+
+
+
+// основная часть 
+
+.main-registration {
+    &__container{
+        padding-bottom: 160px;
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+    }
+    &__header {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 16px;
+    }
+    &__wrapper{
+        display: flex;
+        gap: 60px;
+    }
+}
+.registration-title {
+    display: flex;
+    align-items: last baseline;
+    gap: 16px;
+    &__subheader {
+        color: $light;
+        @extend %pBold;
+    }
+}
+.progress-bar {
+    width: 100%;
+    background-color: $purple-fill;
+    height: 2px;
+    &__line{
+        
+        height: 2px;
+        background-color: #CDBDDB;
+        &_about{
+            width: 10%;
+        }
+        &_edu{
+            width: 20%;
+        }
+    }
+}
+
+// форма со всеми input'ами
+
+.about-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+    width: 366px;
+    &__input , &__text-area {
+        @extend %pNormal;
+        outline: none;
+        box-sizing: border-box;
+        border-radius: 8px;
+        padding: 16px 12px;
+        background: $purple-fill;
+        width: 100%;
+    }
+    &__input_date{
+        color: transparent;
+    }
+    &__text-area {
+        border: none;
+        min-height: 128px;
+        resize: none;
+    }
+}
+.avatar-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 40px 32px;
+    border-radius: 16px;
+    border: 1px dashed var(--d-9-d-1-e-0-stroke, #CDBDDB);
+    box-sizing: border-box;
+    width: 100%;
+    &__title {
+        @extend %pBold;
+    }
+    &__subtext {
+        @extend %pSmall;
+        color: #CCC;
+    }
+}
+
+.input-wrapper {
+    width: 100%;
+
+    &_radio {
+        display: flex;
+    }
+
+    &_year {
+        padding-right: 8px;
+        display: flex;
+        align-items: center;
+        background: #F4F4F6;
+        border-radius: 8px;
+        width: 200px;
+    }
+    &__subtext{
+        @extend %pSmall;
+        color: $secondary-black;
+    }
+    &__subtext_area {
+        color: #9E9E9E;
+        font-size: 12px;
+        line-height: 116%; 
+        letter-spacing: -0.12px;
+    }
+}
+.date-label{
+    padding: 8px;
+    width: 16px;
+    height: 16px;
+    box-sizing: content-box;
+    border-radius: 4px;
+    background-color: #fff;
+    &__icon{
+        width: 16px;
+        height: 16px;
+        background-image: url('../icons/calendar.svg');
+        background-size: cover;
+    }
+}
+
+
+fieldset{
+    outline: none;
+    border: none;
+}
+
+#gender-radio{
+    margin-top: 8px;
+}
+
+.radio-label{
+    display: flex;
+    margin-right: 16px;
+}
+
+#eduLevel-radio{
+    background: $purple-fill;
+    border-radius: 8px;
+    width: max-content;
+    padding: 8px;
+    display: flex;
+    gap: 16px;
+}
+.edu-radio-label{
+    padding: 8px 14px;
+    border-radius: 8px;
+}
+.edu-checkbox-label{
+    @extend %pNormal;
+    display: flex;
+    align-items: center;
+    padding: 8px 4px;
+
+}
+
+.radio-active{
+    background: $purple-main;
+    color: #fff;
+}
+
+
+.input-radio{
+    margin-right: 8px;
+    box-sizing: border-box;
+    width: 16px;
+    height: 16px;
+    border: 2px solid $purple-main;
+    border-radius: 50%;
+    transition: all .1s;
+}
+
+input:checked + .input-radio{
+    border: 6px solid $purple-main;
+}
+.input-checkbox{
+    background: transparent;
+    margin-right: 8px;
+    box-sizing: border-box;
+    width: 16px;
+    height: 16px;
+    border: 2px solid $purple-main;
+    transition: all .1s;
+    border-radius: 4px;
+}
+input:checked + .input-checkbox{
+    background: $purple-main;
+}
+
+.select-inner{
+    display: flex;
+    justify-content: space-between;
+    background: $purple-fill;
+    border-radius: 8px;
+    padding: 16px;
+    &__text{
+        @extend %pNormal;
+        color: #A1A6B1;
+    }
+}
+
+
+.button-wrapper{
+    display: flex;
+    justify-content: end;
+    .button-solid{
+        padding: 12px 64px;
+
+    }
+}
+
+.right-side-wrapper {
+    width: 100%;
+    max-width: 615px;
+    &__text{
+        @extend %pSmall;
+        color: $secondary-black;
+        margin-bottom: 16px;
+    }
+}
+
+// как выглядит ваша анкета
+
+.profile-card {
+    padding: 20px;
+    border-radius: 32px;
+    box-shadow: 0px 1.13351px 4.29362px 0px rgba(133, 94, 152, 0.03), 0px 2.86674px 10.85888px 0px rgba(133, 94, 152, 0.04), 0px 5.84789px 22.15109px 0px rgba(133, 94, 152, 0.05), 0px 5.84789px 22.15109px 0px rgba(133, 94, 152, 0.05);
+    display: flex;
+    gap: 28px;
+    &__img-part {
+        width: 140px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        .button-solid{
+            width: 100%;
+            font-size: 8px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 125%;
+            letter-spacing: -0.08px;
+            padding: 6px 0;
+            border-radius: 4px;
+        }
+    }
+    &__form-info{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    &__about{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 9px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 11px;
+    }
+    &__about_text{
+        color: $secondary-black;
+    }
+    &__about_button{
+        color: $purple-main;
+    }
+
+}
+.blank-img {
+    width: 140px;
+    height: 140px;
+    box-sizing: border-box;
+    border: 1px dashed  #EBEBEB;
+    border-radius: 16px;
+}
+.inserted-img{
+    width: 140px;
+    height: 140px;
+    border-radius: 16px;
+    background-image: url('/src/img/ёжик.jpg');
+    background-size: cover;
+    background-position: center;
+    
+}
+
+
+.text-block {
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    &__item {
+        color: $black-main;
+        font-size: 9px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 11px;
+    }
+    &__name {
+        color:$black-main;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 22px;
+    }
+
+    &__container {
+        min-width: 100px;
+        height: 11px;
+        background: #EEEEF1;
+        border-radius: 4px;
+        font-size: 9px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 11px;
+    }
+    &__container_org{
+        
+        max-width: max-content;
+        height: 17px;
+        padding: 0 6px;
+        display: flex;
+        align-items: center;
+        
+    }
+    &__container_housing{
+        box-sizing: border-box;
+        padding: 12px;
+        background: $purple-fill;
+        height: 113px;
+        width: 100%;
+    }
+        
+    &__divider {
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background-color: $purple-main;
+        opacity: .3;
+    }
+}
+
+
+.preferences {
+    display: flex;
+    flex-direction: column;
+    
+    &__price {
+        background: #EEEEF1;
+        width: 198px;
+        height: 20px;
+        border-radius: 6px;
+        margin: 15px 0 4px;
+    }
+
+    &__metro {
+        background: #EEEEF1;
+        width: 308px;
+        height: 14px;
+        border-radius: 4px;
+    }
+
+    &__divider {
+        width: 100%;
+        height: 1px;
+        opacity: 0.5;
+        background: #CCC;
+        margin: 8px 0;
+    }
+
+    &__wrapper {
+       
+        display: grid;
+        grid-template-columns: 150px 200px;
+        grid-column-gap: 4px;
+    }
+    &__elem{
+        background: #EEEEF1;
+        height: 16px;
+        border-radius: 4px;
+
+    }
+}
+
+    
+
+
+
+.about-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    padding: 12px 16px;
+    border-radius: 16px;
+    box-shadow: 0px 1.13351px 4.29362px 0px rgba(133, 94, 152, 0.03), 0px 2.86674px 10.85888px 0px rgba(133, 94, 152, 0.04), 0px 5.84789px 22.15109px 0px rgba(133, 94, 152, 0.05), 0px 5.84789px 22.15109px 0px rgba(133, 94, 152, 0.05);
+    b{
+        @extend %pBold;
+    }
+    &__subtext{
+        @extend %pSmall;
+        color: $secondary-black;
+    }
+    
+}
+
+// подвал
+
+.footer {
+    padding: 120px 64px;
+    border-top: 1px solid #EBEBEB;
+    border-bottom: 12px solid $purple-main;
+    &__container{
+        display: flex;
+        flex-direction: column;
+        gap: 80px;
+    }
+}
+
+.main-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 40px;
+    &__email {
+        @extend h2;
+        color: $purple-main
+    }
+    &__techlink {
+        @extend %pNormal;
+        color: #AAA;
+    }
+}
+
+.sublinks {
+    display: flex;
+    justify-content: space-between;
+    &__items {
+        display: flex;
+        gap: 32px;
+    }
+
+    &__socials {
+        display: flex;
+        gap: 8px;
+
+    }
+}
+.link-item {
+    @extend %pNormal;
+    color: $black-main;
+}
+.link-social {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    padding: 4px;
+    background: $purple-fill;
+}
+.separator {
+    width: 100%;
+    height: 1px;
+    background-color: $purple-main;
+    opacity: .2;
+}
+.copyright {
+    display: flex;
+    justify-content: space-between;
+    align-items: last baseline;
+    &__text {
+        @extend %pSmall;
+        color: #AAA;
+    }
+    &__term{
+        color: #5D5B66;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
