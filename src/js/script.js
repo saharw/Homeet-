@@ -254,7 +254,7 @@ linkButton.addEventListener('click',()=>{
     
 
     if(validateFlag){
-        window.location.href = 'profile-edu.html'
+        window.location.href = 'profile-edu.html '
     }
 
 })
