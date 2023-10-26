@@ -14,7 +14,7 @@
         </a>
         <button class="button-transp">Выйти из аккаунта</button>
     </header>
-    <main class="main-registration">
+    <main class="main-registration main-registration_edu">
         <div class="container main-registration__container" >
             <div class="main-registration__header">
                 <a class="button-transp" href = 'profile-about.html'>Назад</a>
@@ -44,7 +44,7 @@
                         </label>
                     </fieldset>
                     <div class = "input-wrapper">
-                        <p class = "input-wrapper__subtext"></p>
+                        <p class = "input-wrapper__subtext">Курс</p>
                         <fieldset id = 'eduLevel-radio'>
                             <label  class = 'edu-radio-label'>
                                 <input type="radio" name="eduLevel-radio" class = 'hidden'>
@@ -66,7 +66,7 @@
                                 <input type="radio" name="eduLevel-radio" class = 'hidden'>
                                 5
                             </label>
-                            <label  class = 'edu-radio-label radio-active'>
+                            <label  class = 'edu-radio-label'>
                                 <input type="radio" name="eduLevel-radio" class = 'hidden '>
                                 6
                             </label>
@@ -112,7 +112,9 @@
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <input type="text" class="about-form__input" placeholder="Работа">
+                        <label for="first-last-name" class="input-wrapper__placeholder" >Работа</label>
+                        <input data-input="org" type="text" class="about-form__input displayed-input">
+                        <p class="error-container error-text"></p>
                     </div>
                 </form>
                 <div class="right-side-wrapper">
@@ -135,9 +137,10 @@
                             
                                 </div>
                             </div>
-                            <div class="text-block__container text-block__container_org">СТО в Бизнес в стиле .RU</div>
+                 
+                            <div data-input="org" class="text-block__container text-block__container_org"></div>
                             <div class="profile-card__about">
-                                <p class="profile-card__about_text">Мне очень нравится устраивать вечеринки, дебоширить и мазать с...</p>
+                                <p class="text-block__area profile-card__about_text">Мне очень нравится устраивать вечеринки, дебоширить и мазать с...</p>
                                 <button class="profile-card__about_button">
                                     Развернуть
                                     <svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4" fill="none">
@@ -173,7 +176,7 @@
                 
             </div>
             <div class="button-wrapper">
-                <button class="button-solid disabled">Продолжить </button>
+                <button class="button-solid link-button disabled">Продолжить </button>
             </div>
         </div>
 
@@ -216,5 +219,6 @@
             </div>
         </div>
     </footer>
+    <script src="js/script.js"></script>
 </body>
 </html>

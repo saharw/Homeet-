@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <title>О себе</title>
 </head>
 <body>
@@ -13,7 +14,7 @@
         </a>
         <button class="button-transp">Выйти из аккаунта</button>
     </header>
-    <main class="main-registration">
+    <main class="main-registration main-registration_about">
         <div class="container main-registration__container">
             <div class="main-registration__header">
                 <a class="button-transp" href = 'profile-edu.html'>На главную</a>
@@ -30,45 +31,67 @@
             </div>
             <div class="main-registration__wrapper">
                 <form action="#" class="about-form">
-                    <div class="input-wrapper">
-                        <label for="file-input" class="avatar-label">
+                    <div class="input-wrapper ">
+                        <label for="file-input"  class="avatar-label imgLoadWrapper">
                             <b class="avatar-label__title">Аватар профиля</b>
-                            <p class="button-solid">Загрузить</p>
+                            <p class="button-solid" >Загрузить</p>
                             <p class="avatar-label__subtext">Загрузите фотографию весом не более 10 мб</p>
                         </label>
                         <input id = 'file-input' type = 'file' class="hidden" accept=".jpg,.jpeg,.png">
+                        <div class="inserted-img hidden">
+                            <img class="inserted-img__item">
+                            <button class="inserted-img__close-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                                    <path d="M1 9L9 1M9 9L1 1" stroke="#7953C3" stroke-width="1.5"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                     <div class="input-wrapper">
-                        <input type="text" class="about-form__input" placeholder="Имя и фамилия">
+                        <label for="first-last-name" class="input-wrapper__placeholder" >Имя и фамилия</label>
+                        <input data-input='name' type="text" class="about-form__input displayed-input" name = 'first-last-name' >
+                        <p class="error-container error-text"></p>
                         <fieldset id = 'gender-radio' class="input-wrapper_radio">
                             <label class = 'radio-label' for="male-input">
-                                <input type="radio" id="male-input"  name="gender-radio" class = 'hidden'>
+                                <input data-input="gender" type="radio" id="male-input"  name="gender-radio" class = 'hidden radio-label_input' value="Парень">
                                 <div class="input-radio"></div>
                                 Парень
                             </label>
                             <label  class = 'radio-label' for="female-input" >
-                                <input type="radio" id="female-input" name="gender-radio" class = 'hidden'>
+                                <input data-input="gender" type="radio" id="female-input" name="gender-radio" class = 'hidden radio-label_input' value="Девушка">
                                 <div class="input-radio"></div>
                                 Девушка
                             </label>
                         </fieldset>
+                        <p class="error-container error-text"></p>
                     </div>
                     
                     <div class="input-wrapper input-wrapper_year">
-                        <input type="text" class="about-form__input" placeholder="Дата рождения">
+                        <label class="input-wrapper__placeholder input-wrapper__placeholder_focused" >Дата рождения</label>
+                        
+                        <input type="textt" class="about-form__input about-form__input_date">
                         <label class="date-label">
-                            <input type="date" class ='hidden'>
                             <img src="icons/calendar.svg" alt="calendar" class="date-label__icon">
+        
                         </label>
+                        
+                        <!-- <input type="datetime-local" class="" id = 'date-input'> -->
+                        
                     </div>
                     <div class="input-wrapper">
-                        <input type="text" class="about-form__input" placeholder="Телеграм">
+                        <label for="first-last-name" class="input-wrapper__placeholder" >Телеграм</label>
+                        <input type="text" class="about-form__input">
+                        <p class="error-container error-text"></p>
                     </div>
                     <div class="input-wrapper">
-                        <input type="text" class="about-form__input" placeholder="Номер телефона">
+                        <label for="first-last-name" class="input-wrapper__placeholder" >Номер телефона</label>
+                        <input type="text" class="about-form__input about-form__input_phone">
+                        <p class="error-container error-text"></p>
                     </div>
                     <div class="input-wrapper">
-                        <textarea  placeholder="О себе"  class = 'about-form__text-area'>Мне нравится дебоширить, ломать мебель, устраивать пьянки и вообще капец</textarea>
+                        <label for="first-last-name" class="input-wrapper__placeholder input-wrapper__placeholder_focused" >О себе</label>
+                        <textarea  data-input="area" class = 'about-form__input about-form__text-area displayed-input'>Мне нравится дебоширить, ломать мебель, устраивать пьянки и вообще капец</textarea>
+                        <p class="error-container error-text"></p>
                         <p class="input-wrapper__subtext">Например: Редко готовлю, но люблю ботать на кухне по ночам. Хочу завести собаку. Очень люблю читать, играть в хорроры и смотреть аниме. Открыт к общению и взаимопомощи :)</p>
                     </div>
                 </form>
@@ -77,24 +100,31 @@
                     <div class="profile-card">
                         <div class="profile-card__img-part">
                             <div class="blank-img"></div>
+                            <div class="inserted-img hidden">
+                                <img class="inserted-img__item">
+                            </div>
                             <button class="button-solid disabled">Показать контакты</button>
                         </div>
                         <div class="profile-card__form-info">
                             <div class="text-wrapper">
-                                <p class="text-block__name">Алексей Мамуткин</p>
+                                <div class="text-block__container_name"></div>
+                                
                                 <div class="text-block">
-                                    <p class="text-block__item">Парень</p>
+                                    <div class="text-block__container_gender"></div>
+                                    <!-- <p data-input='gender' class="text-block__gender">Парень</p> -->
                                     <div class="text-block__divider"></div>
-                                    <p class="text-block__item">18 лет</p>
+                                    
+                                    <p data-input='age' class="text-block__age">18 лет</p>
                                     <div class="text-block__divider"></div>
+
                                     <div class="text-block__container"></div>
                             
                                 </div>
                             </div>
                             <div class="text-block__container text-block__container_org"></div>
                             <div class="profile-card__about">
-                                <p class="profile-card__about_text">Мне очень нравится устраивать вечеринки, дебоширить и мазать с...</p>
-                                <button class="profile-card__about_button">
+                                <p class="text-block__area profile-card__about_text">Мне очень нравится устраивать вечеринки, дебоширить и мазать с...</p>
+                                <button class="profile-card__about_button hidden">
                                     Развернуть
                                     <svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4" fill="none">
                                         <path d="M6 1L3.5 3L1 1" stroke="#7953C3" stroke-width="0.8"/>
@@ -127,7 +157,7 @@
                 
             </div>  
             <div class="button-wrapper">
-                <button class="button-solid disabled">Продолжить </button>
+                <button class="button-solid link-button">Продолжить </button>
             </div>          
         </div>
     </main>
@@ -167,5 +197,7 @@
             </div>
         </div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @font-face {
   font-family: Museo Sans Cyrl;
   src: url(../fonts/MuseoSansCyrl100.otf) format(woff);
@@ -69,7 +68,7 @@
   font-style: italic;
 }
 
-.button-transp, .about-form__input, .about-form__text-area, .edu-checkbox-label, .select-inner__text, .main-links__techlink, .link-item {
+.button-transp, .about-form__input, .about-form__text-area, .input-wrapper__placeholder, .edu-checkbox-label, .select-inner__text, .main-links__techlink, .link-item {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -84,7 +83,7 @@
   letter-spacing: -0.16px;
 }
 
-.button-solid, .avatar-label__subtext, .input-wrapper__subtext, .right-side-wrapper__text, .about-bar__subtext, .copyright__text {
+.button-solid, .avatar-label__subtext, .input-wrapper__subtext, .input-wrapper__placeholder_focused, .right-side-wrapper__text, .error-container, .about-bar__subtext, .copyright__text {
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -121,10 +120,6 @@ li {
 a {
   text-decoration: none;
   color: inherit;
-}
-
-.hidden {
-  display: none;
 }
 
 .disabled {
@@ -284,10 +279,6 @@ h3 {
   width: 100%;
 }
 
-.about-form__input_date {
-  color: transparent;
-}
-
 .about-form__text-area {
   border: none;
   min-height: 128px;
@@ -320,6 +311,7 @@ h3 {
 
 .input-wrapper {
   width: 100%;
+  position: relative;
 }
 
 .input-wrapper_radio {
@@ -350,6 +342,25 @@ h3 {
   font-size: 12px;
   line-height: 116%;
   letter-spacing: -0.12px;
+}
+
+.input-wrapper__placeholder {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: text;
+  left: 12px;
+  top: 16px;
+  position: absolute;
+  color: #A1A6B1;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+
+.input-wrapper__placeholder_focused {
+  color: #5D5B66;
+  top: -16px;
 }
 
 .date-label {
@@ -401,6 +412,8 @@ fieldset {
 .edu-radio-label {
   padding: 8px 14px;
   border-radius: 8px;
+  -webkit-transition: all .2s;
+  transition: all .2s;
 }
 
 .edu-checkbox-label {
@@ -573,9 +586,34 @@ input:checked + .input-checkbox {
   width: 140px;
   height: 140px;
   border-radius: 16px;
-  background-image: url("/src/img/ёжик.jpg");
-  background-size: cover;
-  background-position: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.inserted-img__item {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 140px;
+  height: 140px;
+}
+
+.inserted-img__close-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  background: #fff;
 }
 
 .text-block {
@@ -589,7 +627,7 @@ input:checked + .input-checkbox {
   gap: 4px;
 }
 
-.text-block__item {
+.text-block__item, .text-block__gender, .text-block__age {
   color: #040013;
   font-size: 9px;
   font-style: normal;
@@ -616,7 +654,29 @@ input:checked + .input-checkbox {
   line-height: 11px;
 }
 
+.text-block__container_name {
+  background-color: #EEEEF1;
+  border-radius: 6px;
+  min-height: 22px;
+  width: 150px;
+}
+
+.text-block__container_gender {
+  background-color: #EEEEF1;
+  border-radius: 6px;
+  height: 11px;
+  width: 32px;
+}
+
+.text-block__container_area {
+  background-color: #EEEEF1;
+  border-radius: 6px;
+  height: 11px;
+  width: 332px;
+}
+
 .text-block__container_org {
+  background-color: #EEEEF1;
   max-width: -webkit-max-content;
   max-width: -moz-max-content;
   max-width: max-content;
@@ -692,6 +752,31 @@ input:checked + .input-checkbox {
   background: #EEEEF1;
   height: 16px;
   border-radius: 4px;
+}
+
+.error-input {
+  border: 1px solid #F00;
+  background: rgba(255, 0, 0, 0.05);
+}
+
+.error-text {
+  color: #F00;
+}
+
+.error-file {
+  border-color: red;
+  background: rgba(255, 0, 0, 0.05);
+}
+
+.error-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  width: 100%;
+  color: #F00;
 }
 
 .about-bar {
@@ -816,5 +901,9 @@ input:checked + .input-checkbox {
 
 .copyright__term {
   color: #5D5B66;
+}
+
+.hidden {
+  display: none;
 }
 /*# sourceMappingURL=style.css.map */
