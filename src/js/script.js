@@ -1,5 +1,7 @@
 // local storage пока не будет
 
+flatpickr('#date-input',{})
+
 const main = document.querySelector('main');
 
 // input file с аватаркой
@@ -196,6 +198,7 @@ function textValidate(input){
             return 0
         }
     }
+    return 1
 }
 
 function removeTextError(input){
@@ -240,12 +243,15 @@ linkButton.addEventListener('click',()=>{
     if(main.classList.contains('main-registration_about')){
         if(!fileValidate(fileInput)){
             validateFlag = false
+            console.log('file');
         }
         if(!radioValidate('#gender-radio .radio-label')){
             validateFlag = false
+            console.log('gender');
         }
         textInputsForValidate.forEach((item)=>{
             if(!textValidate(item)){
+                console.log('text');
                 validateFlag = false
             }
         })
@@ -254,7 +260,7 @@ linkButton.addEventListener('click',()=>{
     
 
     if(validateFlag){
-        window.location.href = 'profile-edu.html '
+        window.location.href = 'profile-edu.html'
     }
 
 })
