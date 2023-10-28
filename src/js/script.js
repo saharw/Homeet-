@@ -1,6 +1,6 @@
 // local storage пока не будет
 
-flatpickr('#date-input',{})
+
 
 const main = document.querySelector('main');
 
@@ -243,15 +243,15 @@ linkButton.addEventListener('click',()=>{
     if(main.classList.contains('main-registration_about')){
         if(!fileValidate(fileInput)){
             validateFlag = false
-            console.log('file');
+           
         }
         if(!radioValidate('#gender-radio .radio-label')){
             validateFlag = false
-            console.log('gender');
+            
         }
         textInputsForValidate.forEach((item)=>{
             if(!textValidate(item)){
-                console.log('text');
+                
                 validateFlag = false
             }
         })
