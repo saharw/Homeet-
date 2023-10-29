@@ -336,7 +336,54 @@ input:checked + .input-checkbox{
         @extend %pNormal;
         color: #A1A6B1;
     }
+    &__text_selected{
+        color: $black-main
+    }
+    &__button{
+        transition: all .3s
+    }
 }
+
+
+.option-wrapper{
+    @extend %pNormal;
+    color: $black-main;
+    width: 100%;
+    z-index: 3;
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    border-radius: 8px;
+    box-shadow: 0px 1.13351px 4.29362px 0px rgba(133, 94, 152, 0.03), 0px 2.86674px 10.85888px 0px rgba(133, 94, 152, 0.04), 0px 5.84789px 22.15109px 0px rgba(133, 94, 152, 0.05), 0px 5.84789px 22.15109px 0px rgba(133, 94, 152, 0.05);
+    overflow: hidden;
+    max-height: 180px;
+    overflow-y: scroll;
+    &::-webkit-scrollbar{
+        width: 4px;
+        
+    }
+    &::-webkit-scrollbar-thumb{
+        height: 3px;
+        border-radius: 4px;
+        background-color: #CDBDDB;
+    } 
+    &__item{
+        cursor: pointer;
+        padding: 12px 20px;
+        background-color: #fff;
+        &:hover{
+            background-color: #F4F4F6;
+        }
+    }
+}
+
+.select-inner_focused + .option-wrapper{
+    display: flex;
+}
+.select-inner_focused > .select-inner__button{
+    transform: rotate(180deg);
+}
+
 
 
 .button-wrapper{
@@ -468,6 +515,9 @@ input:checked + .input-checkbox{
         font-style: normal;
         font-weight: 400;
         line-height: 11px;
+    }
+    &__container_edu{
+        @extend .text-block__container;
     }
     &__container_name{
         background-color: #EEEEF1;

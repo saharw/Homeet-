@@ -43,8 +43,10 @@
                             Сотрудник
                         </label>
                     </fieldset>
+                    <p class="error-container error-text"></p>
                     <div class = "input-wrapper">
                         <p class = "input-wrapper__subtext ">Курс</p>
+                        <p data-input="edu" id = 'radioSelectForCard' class="select-inner__text_selected hidden"></p>
                         <fieldset id = 'eduLevel-radio'>
                             <label  class = 'edu-radio-label'>
                                 <input type="radio" name="eduLevel-radio " class = 'hidden'>
@@ -71,7 +73,8 @@
                                 6
                             </label>
                         </fieldset>
-                        <label class = 'edu-checkbox-label'>
+                        
+                        <label class = 'edu-checkbox-label '>
                             <input type="checkbox" class = 'hidden'>
                             <div class="input-checkbox"></div>
                             Уже закончил вышку
@@ -80,35 +83,49 @@
                     <div class="input-wrapper">
                         <p class="input-wrapper__subtext">Ступень образования</p>
                         <div class="select-inner">
-                            <p class="select-inner__text">Ступень образования</p>
-                            <button class="select-inner__button">
+                            <p data-input="edu" data-edu="step" class="select-inner__text">Ступень образования</p>
+                            <button type = 'button' class="select-inner__button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                     <path d="M12 6L8 10L4 6" stroke="#7953C3" stroke-width="2"/>
                                 </svg>
                             </button>
+                        </div>
+                        <div class="option-wrapper">
+                            <span class="option-wrapper__item">Бакалавриат</span>
+                            <span class="option-wrapper__item">Магистратура</span>
+                           
+                            
                         </div>
                     </div>
                     <div class="input-wrapper">
                         <p class="input-wrapper__subtext">Факультет</p>
                         <div class="select-inner">
-                            <p class="select-inner__text">Факультет</p>
-                            <button class="select-inner__button">
+                            <p data-input="edu" data-edu="faculty" class="select-inner__text">Факультет</p>
+                            <button type = 'button' class="select-inner__button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                     <path d="M12 6L8 10L4 6" stroke="#7953C3" stroke-width="2"/>
                                 </svg>
                             </button>
                         </div>
+                        <div class="option-wrapper option-wrapper_faculty">
+                            
+                            
+                        </div>
                     </div>
                     <div class="input-wrapper">
                         <p class="input-wrapper__subtext">Образовательная программа</p>
                         <div class="select-inner">
-                            <p class="select-inner__text">Образовательная программа</p>
-                            <button class="select-inner__button">
+                            <p data-edu="eduProgramm" class="select-inner__text ">Образовательная программа</p>
+                            <button type="button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
                                     <circle cx="8" cy="8" r="6.25" stroke="#A1A6B1" stroke-width="1.5"/>
                                     <rect x="13.0981" y="12.0269" width="4.61831" height="1.51652" transform="rotate(45 13.0981 12.0269)" fill="#A1A6B1"/>
                                 </svg>
                             </button>
+                        </div>
+                        <div class="option-wrapper option-wrapper_edu-programm">
+                            
+                            
                         </div>
                     </div>
                     <div class="input-wrapper">
@@ -133,7 +150,7 @@
                                     <div class="text-block__divider"></div>
                                     <p class="text-block__item">18 лет</p>
                                     <div class="text-block__divider"></div>
-                                    <p class="text-block__item">1 курс, бакалавриат Высшая школа бизнеса</p>
+                                    <div class="text-block__container_edu"></div>
                             
                                 </div>
                             </div>
@@ -176,7 +193,7 @@
                 
             </div>
             <div class="button-wrapper">
-                <button class="button-solid link-button disabled">Продолжить </button>
+                <button class="button-solid link-button">Продолжить </button>
             </div>
         </div>
 

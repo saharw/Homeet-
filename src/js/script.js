@@ -1,8 +1,12 @@
 // local storage пока не будет
-
-
+// flatpickr(".about-form__input_date", {}); не работает(
 
 const main = document.querySelector('main');
+const isMainAbout = main.classList.contains('main-registration_about')
+const isMainEdu = main.classList.contains('main-registration_edu')
+
+
+
 
 // input file с аватаркой
 
@@ -15,7 +19,7 @@ const blankImg = document.querySelector('.blank-img');
 const insertedImgs = document.querySelectorAll('.inserted-img');
 const cardImgs = document.querySelectorAll('.inserted-img__item');
 
-if(main.classList.contains('main-registration_about')){
+if(isMainAbout){
 
     fileInput.addEventListener('change',(e)=>{
         blankImg.classList.add('hidden')
@@ -45,14 +49,41 @@ if(main.classList.contains('main-registration_about')){
     imgLoadCloseBtn.addEventListener('click', imgRemove)
 }
 
+// select
+const faculty = ["Факультет экономических наук" , "Высшая школа бизнеса" ," Факультет социальных наук" , "Факультет гуманитарных наук" , "Факультет права","Факультет химии","Факультет биологии"]
+const eduProgramm = ['Управление бизнесом','Филология','Право','Химия','Реклама','Античность','История искусств','Управление бизнесом','Филология','Право','Химия','Реклама','Античность','История искусств']
+
+if(isMainEdu){
+    const facultyWrapper = document.querySelector('.option-wrapper_faculty');
+    const eduProgrammWrapper = document.querySelector('.option-wrapper_edu-programm');
+    const optionItem = (name) => `<span class="option-wrapper__item">${name}</span>`
+
+    faculty.forEach((item)=>{
+        facultyWrapper.insertAdjacentHTML('beforeend',optionItem(item))
+    })
+    eduProgramm.forEach((item)=>{
+        eduProgrammWrapper.insertAdjacentHTML('beforeend',optionItem(item))
+    })
+
+    document.addEventListener('click',(e)=>{ 
+        if(!e.target.closest('.select-inner_focused')){
+            selectInnerAll.forEach((item)=>{
+                item.classList.remove('select-inner_focused')
+            })
+        }
+        
+    })
+
+}
 
 
-// placeholder для input
+// placeholder для input и работа select
 
 const placeholders = document.querySelectorAll('.input-wrapper__placeholder');
 const formInputs = document.querySelectorAll('.about-form__input');
 const form = document.querySelector('form');
 
+const selectInnerAll = document.querySelectorAll('.select-inner');
 
 form.addEventListener('click',(e)=>{
     let currentInput = ''
@@ -76,6 +107,26 @@ form.addEventListener('click',(e)=>{
             }
         })
     }
+    // чтобы не создавать второй обраточик для формы
+
+
+    if(e.target.closest('.select-inner')){
+        selectInnerAll.forEach((item)=>{
+            item.classList.remove('select-inner_focused')
+        })
+        const optionWrapper = e.target.closest('.select-inner')
+        optionWrapper.classList.add('select-inner_focused')
+    }
+    else if(e.target.closest('.option-wrapper')){
+        
+        const currentSelect = e.target.closest('.option-wrapper').previousElementSibling
+        const currentSelectValue = currentSelect.childNodes[1]
+        currentSelectValue.innerText = e.target.closest('.option-wrapper__item').innerText
+        currentSelectValue.classList.add('select-inner__text_selected')
+        currentSelect.classList.remove('select-inner_focused')
+        syncInput(currentSelectValue)
+    }
+
     
 })
 
@@ -83,6 +134,8 @@ form.addEventListener('click',(e)=>{
 
 const eduLevelWrapper = document.querySelector('#eduLevel-radio');
 const eduLevelItems = document.querySelectorAll('.edu-radio-label');
+const eduLevelGraduate = document.querySelector('.edu-checkbox-label');
+
 const radioButtonsInputs = document.querySelectorAll(".radio-label_input");
 const radioLabels = document.querySelectorAll('.radio-label');
 
@@ -99,7 +152,8 @@ radioLabels.forEach((item)=>{
     })
 })
 
-if(main.classList.contains('main-registration_edu')){
+if(isMainEdu){
+    const radioSelectForCard = document.querySelector('#radioSelectForCard');
     eduLevelWrapper.addEventListener('click',(e)=>{
         const target = e.target.closest('.edu-radio-label')
         if(target){
@@ -107,16 +161,30 @@ if(main.classList.contains('main-registration_edu')){
                 item.classList.remove('radio-active')
             })
             target.classList.add('radio-active')
+            eduLevelGraduate.childNodes[1].checked = false
+            radioSelectForCard.innerText = target.innerText + ' курс'
+            syncInput(radioSelectForCard)
         }
     
     })
+    eduLevelGraduate.addEventListener('change',function(){
+        if(this.childNodes[1].checked){
+            eduLevelItems.forEach((item)=>{
+                item.classList.remove('radio-active')
+            })
+            radioSelectForCard.innerText = 'Выпускник'
+            syncInput(radioSelectForCard)
+        }
+    })
+
 }
 
 // перенос в карточки
 const inputTypes = {
     textReplace :['name','area'], 
     textNoReplace:['org'],
-    radio:['gender','course']
+    radio:['gender','course'],
+    special:['edu']
 }
 const displayedInputs = document.querySelectorAll('.displayed-input');
 
@@ -133,7 +201,7 @@ function getTextBlockItem(data, text){
     return `<p data-input='${data}' class="text-block__${data} text-block__item">${text}</p>`
 }
 
-function syncInput(input){
+function syncInput(input){   // жесть функция по переносу в карточку в зависимости от типа переноса
     const attribute = input.getAttribute('data-input')
     const currentInputContainer = document.querySelector(`.text-block__container_${attribute}`);
     const currentInputItem = document.querySelector(`.text-block__${attribute}`);
@@ -153,6 +221,7 @@ function syncInput(input){
     } else if(inputTypes.textNoReplace.indexOf(attribute) != -1){
         currentInputContainer.innerText = input.value
     } else if(inputTypes.radio.indexOf(attribute) != -1){
+
         if(currentInputContainer){
             currentInputContainer.insertAdjacentHTML('afterend', getTextBlockItem(attribute,input.value))
             currentInputContainer.remove()
@@ -160,6 +229,21 @@ function syncInput(input){
             currentInputItem.innerText = input.value
         }
 
+    } else if(inputTypes.special.indexOf(attribute) != -1){
+        const selectValues = document.querySelectorAll('.select-inner__text_selected');
+        let selectText = '';
+        selectValues.forEach((item)=>{
+            if(item.dataset.edu != 'eduProgramm'){
+                selectText += ' ' +item.innerText
+            }
+        })
+        
+        if(currentInputContainer){
+            currentInputContainer.insertAdjacentHTML('afterend', getTextBlockItem(attribute,selectText))
+            currentInputContainer.remove()
+        } else {
+            currentInputItem.innerText = selectText
+        }
     }
 }
 
@@ -240,7 +324,7 @@ const linkButton = document.querySelector('.link-button');
 linkButton.addEventListener('click',()=>{
     let validateFlag = true;
 
-    if(main.classList.contains('main-registration_about')){
+    if(isMainAbout){
         if(!fileValidate(fileInput)){
             validateFlag = false
            
@@ -251,7 +335,16 @@ linkButton.addEventListener('click',()=>{
         }
         textInputsForValidate.forEach((item)=>{
             if(!textValidate(item)){
-                
+                validateFlag = false
+            }
+        })
+
+    }
+    if(isMainEdu){
+        
+        
+        textInputsForValidate.forEach((item)=>{
+            if(!textValidate(item)){
                 validateFlag = false
             }
         })
@@ -266,7 +359,12 @@ linkButton.addEventListener('click',()=>{
 })
 
 
-// select не успел
+
+
+
+
+
+
 
 // календарь не успел
 
