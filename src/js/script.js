@@ -1,5 +1,4 @@
 // local storage пока не будет
-// flatpickr(".about-form__input_date", {}); не работает(
 
 const main = document.querySelector('main');
 const isMainAbout = main.classList.contains('main-registration_about')
@@ -48,6 +47,18 @@ if(isMainAbout){
     }
     imgLoadCloseBtn.addEventListener('click', imgRemove)
 }
+
+// календарь
+
+if(isMainAbout){
+    const dateInput = document.querySelector('.about-form__input_date');
+    flatpickr(dateInput);
+
+    // dateInput.addEventListener('change',function(){
+    //     syncInput(this)
+    // }) 
+}
+
 
 // select
 const faculty = ["Факультет экономических наук" , "Высшая школа бизнеса" ," Факультет социальных наук" , "Факультет гуманитарных наук" , "Факультет права","Факультет химии","Факультет биологии"]
@@ -181,7 +192,7 @@ if(isMainEdu){
 
 // перенос в карточки
 const inputTypes = {
-    textReplace :['name','area'], 
+    textReplace :['name','area','date'], 
     textNoReplace:['org'],
     radio:['gender','course'],
     special:['edu']
@@ -202,11 +213,12 @@ function getTextBlockItem(data, text){
 }
 
 function syncInput(input){   // жесть функция по переносу в карточку в зависимости от типа переноса
-    const attribute = input.getAttribute('data-input')
+    const attribute = input.dataset.input
     const currentInputContainer = document.querySelector(`.text-block__container_${attribute}`);
     const currentInputItem = document.querySelector(`.text-block__${attribute}`);
 
     if(inputTypes.textReplace.indexOf(attribute) != -1){
+     
         if(currentInputContainer){
             currentInputContainer.insertAdjacentHTML('afterend', getTextBlockItem(attribute,input.value))
             currentInputContainer.remove()
@@ -256,13 +268,18 @@ function syncInput(input){   // жесть функция по переносу 
 const textInputsForValidate = document.querySelectorAll("input[type='text'], textarea");
 
 textInputsForValidate.forEach((item)=>{
-    item.addEventListener('blur', function(){
-        textValidate(this)
+    if(item.dataset.input != 'date'){
+       
+        item.addEventListener('blur', function(){
+            textValidate(this)
+            
+        })
+        item.addEventListener('focus',function(){
+            removeTextError(this)
+        })
 
-    })
-    item.addEventListener('focus',function(){
-        removeTextError(this)
-    })
+    }
+    
 })
 
 const phonePattern = /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/
@@ -360,13 +377,6 @@ linkButton.addEventListener('click',()=>{
 
 
 
-
-
-
-
-
-
-// календарь не успел
 
 
 

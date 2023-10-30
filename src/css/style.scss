@@ -207,6 +207,7 @@ h3{
     }
 
     &_year {
+        margin-top: 10px;
         padding-right: 8px;
         display: flex;
         align-items: center;
@@ -518,6 +519,10 @@ input:checked + .input-checkbox{
     }
     &__container_edu{
         @extend .text-block__container;
+    }
+    &__container_date{
+        @extend .text-block__container;
+        min-width: 30px;
     }
     &__container_name{
         background-color: #EEEEF1;
