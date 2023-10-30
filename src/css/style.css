@@ -285,6 +285,27 @@ h3 {
   resize: none;
 }
 
+.date-pseudo {
+  position: relative;
+}
+
+.date-pseudo::after {
+  content: '';
+  cursor: pointer;
+  z-index: 10;
+  background-image: url("../icons/calendar.svg");
+  background-size: cover;
+  background-color: #fff;
+  width: 18px;
+  height: 18px;
+  border: 10px solid #fff;
+  border-radius: 8px;
+  display: block;
+  position: absolute;
+  top: 25px;
+  right: -80px;
+}
+
 .avatar-label {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -320,16 +341,12 @@ h3 {
   display: flex;
 }
 
+.input-wrapper_name {
+  margin-bottom: 10px;
+}
+
 .input-wrapper_year {
-  margin-top: 10px;
   padding-right: 8px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  background: #F4F4F6;
   border-radius: 8px;
   width: 200px;
 }

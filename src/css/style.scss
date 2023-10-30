@@ -172,11 +172,31 @@ h3{
         background: $purple-fill;
         width: 100%;
     }
-   
+    
     &__text-area {
         border: none;
         min-height: 128px;
         resize: none;
+    }
+}
+.date-pseudo{
+    position: relative;
+    &::after{
+        content:  '';
+        cursor: pointer;
+        z-index: 10;
+        background-image: url('../icons/calendar.svg');
+        background-size: cover;
+        background-color: #fff;
+        width: 18px;
+        height: 18px;
+        border: 10px solid #fff;
+        border-radius: 8px;
+        display: block;
+        position: absolute;
+        top: 25px;
+        right: -80px;
+
     }
 }
 .avatar-label {
@@ -205,16 +225,17 @@ h3{
     &_radio {
         display: flex;
     }
-
+    &_name{
+        margin-bottom: 10px;
+    }
     &_year {
-        margin-top: 10px;
         padding-right: 8px;
-        display: flex;
-        align-items: center;
-        background: #F4F4F6;
+
         border-radius: 8px;
         width: 200px;
     }
+
+    
     &__subtext{
         @extend %pSmall;
         color: $secondary-black;

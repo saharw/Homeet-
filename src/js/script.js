@@ -54,9 +54,13 @@ if(isMainAbout){
     const dateInput = document.querySelector('.about-form__input_date');
     flatpickr(dateInput);
 
-    // dateInput.addEventListener('change',function(){
-    //     syncInput(this)
-    // }) 
+    dateInput.addEventListener('change',function(){
+        const dateClone = this.cloneNode(1)
+        const dateBirthday = new Date(dateClone.value)
+        const currentAge = (new Date().getTime() - dateBirthday.getTime()) / (365 * 24 * 3600 * 1000)
+        dateClone.value = Math.floor(currentAge) + ' лет'
+        syncInput(dateClone)
+    }) 
 }
 
 
@@ -266,6 +270,7 @@ function syncInput(input){   // жесть функция по переносу 
 // валидация
 
 const textInputsForValidate = document.querySelectorAll("input[type='text'], textarea");
+console.log(textInputsForValidate);
 
 textInputsForValidate.forEach((item)=>{
     if(item.dataset.input != 'date'){
@@ -285,6 +290,8 @@ textInputsForValidate.forEach((item)=>{
 const phonePattern = /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/
 
 function textValidate(input){
+    
+    
     if(!input.value.length){
         input.classList.add('error-input')
         input.previousElementSibling.classList.add('error-text')
@@ -314,6 +321,13 @@ function fileValidate(input){
     }
     return input.files.length
 }
+
+function dateValidate(input){
+    if(!input.value.length){
+
+    }
+}
+
 
 function radioValidate(label){
     const options = document.querySelectorAll(label);
@@ -374,9 +388,6 @@ linkButton.addEventListener('click',()=>{
     }
 
 })
-
-
-
 
 
 
