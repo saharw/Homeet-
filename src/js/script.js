@@ -1,8 +1,113 @@
-// local storage пока не будет
-
 const main = document.querySelector('main');
 const isMainAbout = main.classList.contains('main-registration_about')
 const isMainEdu = main.classList.contains('main-registration_edu')
+
+// local storage 
+
+const getFormData = JSON.parse(localStorage.getItem('formData'));
+
+function localStorageSet(name,obj){
+    const stringData = JSON.stringify(obj);
+    localStorage.setItem(name,stringData)
+}
+function inputLSSet(input){
+    currentData[input.dataset.input] = input.value
+    localStorageSet('formData',currentData)
+}
+
+
+// перенос в карточки
+const inputTypes = {
+    textReplace :['name','area','date'], 
+    textNoReplace:['org'],
+    radio:['gender','course'],
+    special:['edu']
+}
+
+const currentData = {
+    avatar:'',
+    name:'',
+    gender:'',
+    date:'',
+    tg:'',
+    phone:'',
+    area:''
+}
+function setAboutFormData(){ //cоздание фейкового инпута для переноса в карточки на 2 странице
+    const setFormAttributes = ['name','area','date','gender']
+    const inputCase = document.createElement('input')
+    setFormAttributes.forEach((item)=>{
+        inputCase.dataset.input = item
+        inputCase.value = getFormData[item]
+        syncInput(inputCase)
+    })
+}
+if(isMainEdu){
+    setAboutFormData()
+}
+
+const displayedInputs = document.querySelectorAll('.displayed-input');
+
+displayedInputs.forEach((item)=>{
+    item.addEventListener('input', function(){
+        syncInput(this)
+        inputLSSet(this)
+    })
+})
+
+function getTextBlockContainer(data){
+    return `<div class="text-block__container_${data}"></div>`
+}
+function getTextBlockItem(data, text){
+    return `<p data-input='${data}' class="text-block__${data} text-block__item">${text}</p>`
+}
+
+function syncInput(input){   // жесть функция по переносу в карточку в зависимости от типа переноса
+    const attribute = input.dataset.input
+    const currentInputContainer = document.querySelector(`.text-block__container_${attribute}`);
+    const currentInputItem = document.querySelector(`.text-block__${attribute}`);
+    
+    if(inputTypes.textReplace.indexOf(attribute) != -1){
+     
+        if(currentInputContainer){
+            currentInputContainer.insertAdjacentHTML('afterend', getTextBlockItem(attribute,input.value))
+            currentInputContainer.remove()
+        } else {
+            currentInputItem.innerText = input.value
+        }
+        if(!input.value){
+            currentInputItem.insertAdjacentHTML('afterend', getTextBlockContainer(attribute))
+            currentInputItem.remove()
+        }
+    
+    } else if(inputTypes.textNoReplace.indexOf(attribute) != -1){
+        currentInputContainer.innerText = input.value
+    } else if(inputTypes.radio.indexOf(attribute) != -1){
+
+        if(currentInputContainer){
+            currentInputContainer.insertAdjacentHTML('afterend', getTextBlockItem(attribute,input.value))
+            currentInputContainer.remove()
+        } else {
+            currentInputItem.innerText = input.value
+        }
+
+    } else if(inputTypes.special.indexOf(attribute) != -1){
+        const selectValues = document.querySelectorAll('.select-inner__text_selected');
+        let selectText = '';
+        selectValues.forEach((item)=>{
+            if(item.dataset.edu != 'eduProgramm'){
+                selectText += ' ' +item.innerText
+            }
+        })
+        
+        if(currentInputContainer){
+            currentInputContainer.insertAdjacentHTML('afterend', getTextBlockItem(attribute,selectText))
+            currentInputContainer.remove()
+        } else {
+            currentInputItem.innerText = selectText
+        }
+    }
+}
 
 
 
@@ -36,18 +141,28 @@ if(isMainAbout){
             cardImgs.forEach((item)=>{
                 item.src = filereader.result
             })
+            currentData['avatar'] =  filereader.result
+            localStorageSet('formData',currentData)
         }
         filereader.readAsDataURL(target.files[0]);
+        
+        
     })
     function imgRemove(){
         blankImg.classList.remove('hidden')
         imgLoadWrapper.classList.remove('hidden')
         insertedImgs.forEach((item)=> item.classList.add('hidden'))
+        currentData['avatar'] = ''
+        localStorageSet('formData',currentData)
     
     }
     imgLoadCloseBtn.addEventListener('click', imgRemove)
 }
-
+else if(isMainEdu){
+    blankImg.classList.add('hidden')
+    insertedImgs[0].classList.remove('hidden')
+    cardImgs[0].src = getFormData.avatar
+}
 // календарь
 
 if(isMainAbout){
@@ -60,6 +175,7 @@ if(isMainAbout){
         const currentAge = (new Date().getTime() - dateBirthday.getTime()) / (365 * 24 * 3600 * 1000)
         dateClone.value = Math.floor(currentAge) + ' лет'
         syncInput(dateClone)
+        inputLSSet(dateClone)
     }) 
 }
 
@@ -140,6 +256,7 @@ form.addEventListener('click',(e)=>{
         currentSelectValue.classList.add('select-inner__text_selected')
         currentSelect.classList.remove('select-inner_focused')
         syncInput(currentSelectValue)
+        
     }
 
     
@@ -157,6 +274,7 @@ const radioLabels = document.querySelectorAll('.radio-label');
 radioButtonsInputs.forEach((item)=>{
     item.addEventListener('change', function(){
         syncInput(item)
+        inputLSSet(item)
     })
 })
 
@@ -194,83 +312,13 @@ if(isMainEdu){
 
 }
 
-// перенос в карточки
-const inputTypes = {
-    textReplace :['name','area','date'], 
-    textNoReplace:['org'],
-    radio:['gender','course'],
-    special:['edu']
-}
-const displayedInputs = document.querySelectorAll('.displayed-input');
-
-displayedInputs.forEach((item)=>{
-    item.addEventListener('input', function(){
-        syncInput(this)
-    })
-})
-
-function getTextBlockContainer(data){
-    return `<div class="text-block__container_${data}"></div>`
-}
-function getTextBlockItem(data, text){
-    return `<p data-input='${data}' class="text-block__${data} text-block__item">${text}</p>`
-}
-
-function syncInput(input){   // жесть функция по переносу в карточку в зависимости от типа переноса
-    const attribute = input.dataset.input
-    const currentInputContainer = document.querySelector(`.text-block__container_${attribute}`);
-    const currentInputItem = document.querySelector(`.text-block__${attribute}`);
-
-    if(inputTypes.textReplace.indexOf(attribute) != -1){
-     
-        if(currentInputContainer){
-            currentInputContainer.insertAdjacentHTML('afterend', getTextBlockItem(attribute,input.value))
-            currentInputContainer.remove()
-        } else {
-            currentInputItem.innerText = input.value
-        }
-        if(!input.value){
-            currentInputItem.insertAdjacentHTML('afterend', getTextBlockContainer(attribute))
-            currentInputItem.remove()
-        }
-    
-    } else if(inputTypes.textNoReplace.indexOf(attribute) != -1){
-        currentInputContainer.innerText = input.value
-    } else if(inputTypes.radio.indexOf(attribute) != -1){
-
-        if(currentInputContainer){
-            currentInputContainer.insertAdjacentHTML('afterend', getTextBlockItem(attribute,input.value))
-            currentInputContainer.remove()
-        } else {
-            currentInputItem.innerText = input.value
-        }
-
-    } else if(inputTypes.special.indexOf(attribute) != -1){
-        const selectValues = document.querySelectorAll('.select-inner__text_selected');
-        let selectText = '';
-        selectValues.forEach((item)=>{
-            if(item.dataset.edu != 'eduProgramm'){
-                selectText += ' ' +item.innerText
-            }
-        })
-        
-        if(currentInputContainer){
-            currentInputContainer.insertAdjacentHTML('afterend', getTextBlockItem(attribute,selectText))
-            currentInputContainer.remove()
-        } else {
-            currentInputItem.innerText = selectText
-        }
-    }
-}
-
-
 
 
 
 // валидация
 
 const textInputsForValidate = document.querySelectorAll("input[type='text'], textarea");
-console.log(textInputsForValidate);
+
 
 textInputsForValidate.forEach((item)=>{
     if(item.dataset.input != 'date'){
